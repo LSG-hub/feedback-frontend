@@ -72,6 +72,8 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("🟢 Form Submitted!"); // Debug Log
+    console.log("🟢 Feedback Data:", feedback); // Debug Log
 
     let newErrors = {
       name: validate("name", feedback.name),
