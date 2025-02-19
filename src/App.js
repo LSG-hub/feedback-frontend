@@ -2,30 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
+  // State to store feedback input values
   const [feedback, setFeedback] = useState({
     name: '',
     email: '',
     message: ''
   });
 
+  // State to store validation errors
   const [errors, setErrors] = useState({});
+
+  // State to store list of submitted feedback
   const [feedbackList, setFeedbackList] = useState([]);
+
+  // State to handle success message display
   const [successMessage, setSuccessMessage] = useState("");
 
+  // Fetch existing feedback when the component mounts
   useEffect(() => {
     fetchFeedback();
   }, []);
 
+  // Function to fetch feedback from backend
   const fetchFeedback = async () => {
     try {
       const response = await fetch('https://feedback-backend-wtbh.onrender.com/feedback');
       const data = await response.json();
-      setFeedbackList(data);
+      setFeedbackList(data); // Store feedback in state
     } catch (error) {
       console.error("Error fetching feedback:", error);
     }
   };
 
+  // Function to validate input fields
   const validate = (field, value) => {
     let error = "";
 
@@ -56,6 +65,7 @@ function App() {
     return error;
   };
 
+  // Handle input changes and validate fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     
@@ -70,6 +80,7 @@ function App() {
     });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("🟢 Form Submitted!"); // Debug Log
@@ -83,11 +94,13 @@ function App() {
 
     setErrors(newErrors);
 
+    // Stop submission if there are validation errors
     if (Object.values(newErrors).some(error => error)) {
       return;
     }
 
     try {
+      // Send feedback data to backend
       const response = await fetch('https://feedback-backend-wtbh.onrender.com/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -101,12 +114,17 @@ function App() {
         return;
       }
 
+      // Display success message
       setSuccessMessage("✅ Thank you! Your feedback has been submitted successfully.");
 
+      // Reset form fields and errors
       setFeedback({ name: '', email: '', message: '' });
       setErrors({});
+
+      // Refresh feedback list
       fetchFeedback();
 
+      // Remove success message after 3 seconds
       setTimeout(() => setSuccessMessage(""), 3000);
       
     } catch (error) {
@@ -134,6 +152,7 @@ function App() {
         )}
       </AnimatePresence>
 
+      {/* Feedback Form */}
       <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-xl p-6 w-full max-w-lg">
         <div className="mb-4">
           <label className="block font-semibold text-gray-700 mb-1">Name:</label>
