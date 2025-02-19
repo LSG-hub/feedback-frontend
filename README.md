@@ -110,7 +110,7 @@ netlify deploy
 ## 🔗 Backend Repository
 
 The backend for this project is available at:
-https://github.com/LSG_hub/feedback-backend
+https://github.com/LSG-hub/feedback-backend
 
 ---
 
