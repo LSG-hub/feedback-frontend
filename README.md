@@ -57,12 +57,13 @@ http://localhost:3000
 ```sh
 feedback-frontend/
 │── src/
-│   ├── components/      # Reusable UI components
 │   ├── App.js           # Main React Component
+|   ├── App.css         
 │   ├── index.js         # Entry point
-│   ├── styles.css       # Global styles
 │── public/
 │── package.json         # Project dependencies
+├── tailwind.config.js
+├── postcss.config.js
 │── README.md            # Project documentation
 ```
 
